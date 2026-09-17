@@ -1,0 +1,61 @@
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+jspm_packages/
+bower_components/
+
+# ==========================================
+# Environment Variables & Database Secrets (CRITICAL)
+# ==========================================
+# Never commit your database passwords or connection strings!
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# SQLite databases (if used alongside PG for local testing)
+*.db
+*.sqlite
+
+# Docker database volumes (if you run PG in Docker locally)
+.db-data/
+pgdata/
+
+# ==========================================
+# Logs and Debugging
+# ==========================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# Diagnostic / Testing Outputs
+# ==========================================
+coverage/
+.nyc_output/
+.jest/
+
+# ==========================================
+# Build & Compiles (For TypeScript / Babel)
+# ==========================================
+dist/
+build/
+.cache/
+
+# ==========================================
+# IDEs, Editors & OS Metadata
+# ==========================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+.DS_Store
+Thumbs.db
