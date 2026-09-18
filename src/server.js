@@ -2,8 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const pool = require("./config/db");
 const app = express();
+const ticketRoutes = require("./routes/ticket.routes");
 
 const PORT = process.env.PORT || 5000;
+
+app.use("/api/tickets", ticketRoutes);
 
 const startServer = async () => {
   try {
