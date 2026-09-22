@@ -20,9 +20,23 @@ const createTicket = async (req, res) => {
   try {
     const { title, description } = req.body;
 
+    if (!title || title.trim() === "") {
+      return res.status(400).json({
+        message: "Title is required",
+      });
+    }
+
+    if (title.length > 150) {
+      return res.status(400).json({
+        message: "Title cannot exceed 150 characters",
+      });
+    }
+
     const result = await pool.query(
-      "INSERT INTO tickets (title, description) VALUES ($1, $2) RETURNING *",
-      [title, description],
+      `INSERT INTO tickets (title, description)
+       VALUES ($1, $2)
+       RETURNING *`,
+      [title.trim(), description || null],
     );
 
     res.status(201).json(result.rows[0]);
@@ -68,6 +82,26 @@ const updateTicket = async (req, res) => {
     const { id } = req.params;
     const { title, description, status } = req.body;
 
+    if (!title || title.trim() === "") {
+      return res.status(400).json({
+        message: "Title is required",
+      });
+    }
+
+    if (title.length > 150) {
+      return res.status(400).json({
+        message: "Title cannot exceed 150 characters",
+      });
+    }
+
+    const allowedStatuses = ["open", "closed"];
+
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({
+        message: "Status must be either open or closed",
+      });
+    }
+
     const result = await pool.query(
       `UPDATE tickets
        SET title = $1,
@@ -75,7 +109,7 @@ const updateTicket = async (req, res) => {
            status = $3
        WHERE id = $4
        RETURNING *`,
-      [title, description, status, id],
+      [title.trim(), description || null, status, id],
     );
 
     if (result.rows.length === 0) {
