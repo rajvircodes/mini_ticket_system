@@ -5,6 +5,7 @@ const {
   createTicket,
   getById,
   updateTicket,
+  deleteTicket,
 } = require("../controllers/ticket.controller");
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.post("/", createTicket);
 router.get("/:id", getById);
 
 router.put("/:id", updateTicket);
+router.delete("/:id", deleteTicket);
 
 module.exports = router;
